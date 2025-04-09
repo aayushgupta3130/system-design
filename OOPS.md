@@ -1,78 +1,128 @@
-Maintaining  the code - 
-debug , testing, bug fixes, refactoring
-understandable , self explanatory, reusable code, extensible
+# Why System Design is Important
 
-This can be achieved by writing code in object oriented programming not procedural programming as solving DSA questions.
+System design is important to ensure that code is:
 
+- Easily **debuggable**
+- Supports proper **testing**, **bug fixes**, and **refactoring**
+- **Understandable** and **self-explanatory**
+- **Reusable** and **extensible**
 
-Object Oriented Programming
-Inheritance 
-Abstraction
-Polymorphism
-Encapsulation
+---
 
+## How Can This Be Achieved?
 
-Classes - Real world entities such as Mentor, Mentees, Instructor, Users, Batch , Assignments, Homework, Submission.
+This can be achieved by writing code using **Object-Oriented Programming (OOP)** instead of procedural programming (like in most DSA problems).
 
-MVC - Model View Controller 
-Controller class
-Service Class
-Utility Class
+---
 
-Single Responsibility Principle -
-Any code entity has to focus on only one single responsibility. 
-Use Inheritance to apply the above rule.
+## Object-Oriented Programming Concepts
 
+- **Inheritance**
+- **Abstraction**
+- **Polymorphism**
+- **Encapsulation**
 
-Use case of the abstract class 
-When we know that there is a method which is common between all the child classes such that in each class it has different implementation , then we use the concept of abstract class. 
+### Real-World Examples (Classes):
 
-Class Bird {
-	Abstract fly () {} 
-} 
+- `Mentor`
+- `Mentees`
+- `Instructor`
+- `Users`
+- `Batch`
+- `Assignments`
+- `Homework`
+- `Submission`
 
-Class Eagle extends Bird {
-fly() {
-“Fly above 2000 ft”
+---
+
+## MVC Architecture
+
+- **Model-View-Controller**
+  - `Controller` class
+  - `Service` class
+  - `Utility` class
+
+---
+
+## Design Principles
+
+### Single Responsibility Principle
+
+> Any code entity should have only **one single responsibility**.
+
+Use **inheritance** to apply this principle effectively.
+
+---
+
+## Use Case of Abstract Class
+
+When there's a method that is **common among all child classes**, but its **implementation differs**, use an **abstract class**.
+
+### Example:
+
+```java
+abstract class Bird {
+  abstract void fly();
 }
+
+class Eagle extends Bird {
+  void fly() {
+    System.out.println("Fly above 2000 ft");
+  }
 }
 
-
-
-Class Hen extends Bird {
-fly() {
-“Fly below 500 ft”
+class Hen extends Bird {
+  void fly() {
+    System.out.println("Fly below 500 ft");
+  }
 }
-}
+```
 
-Any class which has at least one abstract method is termed as an abstract class.
+### Key Notes:
+- Any class with at least **one abstract method** is an **abstract class**.
+- An **abstract method** must be implemented in all child classes.
+- If not implemented, it causes a **compilation error**.
+- You **cannot instantiate** an abstract class:
 
-Abstract method has to be common against all the child classes but it’s implementation can be different.
+```java
+Bird b = new Bird(); // ❌ Compilation error
+```
 
-Any method which is termed as abstract in parent class needs to be added in child class. If not included , it gives a compilation error.
+Because `fly()` is abstract and not defined.
 
-Logical meaning of abstract - It’s a concept or idea.
+---
 
-Creating an object of an abstract class is prohibited because abstract class has no implementation inside it. For Ex: Bird is an abstract class with fly() as the abstract method
-Bird b = new Bird();
-b.fly() —-> This is wrong because fly() method is not defined or elaborated what to do. —> compilation error.
+## Interface vs Abstract Class
 
-Throw an exception if a class is not supposed to implement a method but is forced to do so .
-This is a violation of the Liskov Substitution Principle(Design Principle). 
- To solve the above problem use “Interface”.
+If a class is forced to implement a method that it shouldn’t (e.g., a bird that can’t fly), it **violates Liskov Substitution Principle**.
 
-All methods should be called inside interface - set of behaviours
-Difference between abstract class and interface — Important
+To solve this:  
+✅ Use an **Interface** instead.
 
-Use case for abstract class - When classes share some common behavior
-Use case for Interface - When you want to enforce structure only
+---
 
-For Example : 
-Some birds like penguin , ostriches do not fly. So if we will make fly as an abstract method, it is enforced to add in all child classes which extend Bird class. 
-But this problem can be solved if we do not make fly as abstract method , we make it an interface and implement it in the child classes where it is used. 
+### When to Use:
 
-Use of abstraction
+- **Abstract Class** → When multiple classes **share some behavior**
+- **Interface** → When you want to **enforce structure/behavior** only
 
+---
+
+### Real-World Example: Birds That Can’t Fly
+
+Some birds like **penguins** or **ostriches** cannot fly.
+
+If `fly()` is an abstract method in `Bird`, then **all** child classes must implement it—even those that shouldn't.
+
+### Better Solution:
+
+- Create a `Fly` interface and only implement it in the birds that can fly.
+
+---
+
+## Use of Abstraction in TypeScript / JavaScript
+
+```ts
 abstract class Bird {
   abstract makeSound(): void;
 
@@ -90,14 +140,20 @@ class Penguin extends Bird {
     console.log("Penguin swims");
   }
 }
+```
 
- What the abstract class does:
-Provides common behavior like eat()
+### What the Abstract Class Does:
 
-Forces child to implement some methods like makeSound()
+- Provides common behavior (`eat()`)
+- Forces child to implement certain methods (`makeSound()`)
 
-Great for code reuse + enforcing structure
+✅ Good for **code reuse** + **enforcing structure**
 
+---
+
+## Using Interface
+
+```ts
 interface Fly {
   fly(): void;
 }
@@ -111,9 +167,11 @@ class Sparrow extends Bird implements Fly {
     console.log("Flying high!");
   }
 }
+```
 
-But in case of a Penguin, which cannot fly, we simply don't implement Fly:
+### For Penguins That Don’t Fly:
 
+```ts
 class Penguin extends Bird {
   makeSound() {
     console.log("Penguin sound");
@@ -123,22 +181,11 @@ class Penguin extends Bird {
     console.log("Swimming instead of flying");
   }
 }
+```
 
-Questions 1 - 40+ OOPs Interview Questions and Answers (2025) - InterviewBit
-Questions 2 - https://leetcode.com/discuss/post/4440061/part-2-top-16-oops-interview-questions-w-vw45/
+---
 
+## Reference Questions
 
-SOLID Principles
-
-Single Responsibility Principle
-Litmus Test to check violation of single responsibility principle
-1 - Many if/else conditions
-2 - Code is not modular - everything written inside single function
-3 - Unspecified utility / helper classes
-
-Open close Principle
-Open for extension
-Closed for modification
-
-
-
+- **[InterviewBit: 40+ OOPs Interview Questions and Answers (2025)](https://www.interviewbit.com)**
+- **[LeetCode OOPs Questions – Part 2 (Top 16)](https://leetcode.com/discuss/post/4440061/part-2-top-16-oops-interview-questions-w-vw45/)**
